@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>לוח בקרה - נבחרת הקריאה</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            direction: rtl;
+        }
+
+        .dashboard {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .header h1 {
+            color: #FF6B6B;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 16px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+
+        .stat-card .icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .stat-card .value {
+            font-size: 42px;
+            font-weight: bold;
+            color: #FF6B6B;
+            margin-bottom: 10px;
+        }
+
+        .stat-card .label {
+            font-size: 16px;
+            color: #666;
+            font-weight: 600;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+        }
+
+        .card h2 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #FF6B6B;
+            padding-bottom: 10px;
+        }
+
+        .progress-section {
+            margin: 20px 0;
+        }
+
+        .progress-bar-container {
+            background: #e0e0e0;
+            height: 40px;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 10px;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4CAF50 0%, #8BC34A 100%);
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: 12px;
+            text-align: right;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .data-table th {
+            background: #FF6B6B;
+            color: white;
+            font-weight: bold;
+        }
+
+        .data-table tr:hover {
+            background: #f5f5f5;
+        }
+
+        .feeling-badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .feeling-easy {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .feeling-hard {
+            background: #FFC107;
+            color: #333;
+        }
+
+        .feeling-flow {
+            background: #2196F3;
+            color: white;
+        }
+
+        .refresh-btn {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .refresh-btn:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+        }
+
+        .export-btn {
+            background: #2196F3;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-right: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .export-btn:hover {
+            background: #0b7dda;
+            transform: translateY(-2px);
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .no-data {
+            text-align: center;
+            color: #999;
+            padding: 40px;
+            font-size: 18px;
+        }
+
+        .student-card {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .student-name {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .student-days {
+            color: #FF6B6B;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .data-table {
+                font-size: 12px;
+            }
+            
+            .data-table th,
+            .data-table td {
+                padding: 8px 4px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Header -->
+        <div class="header">
+            <h1>👩‍🏫 לוח בקרה - נבחרת הקריאה</h1>
+            <p>מעקב אחר הדיווחים והתקדמות הכיתה</p>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="btn-group">
+            <button class="refresh-btn" onclick="loadData()">🔄 רענן נתונים</button>
+            <button class="export-btn" onclick="exportToCSV()">📊 ייצא לאקסל</button>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="icon">⏱️</div>
+                <div class="value" id="totalMinutes">0</div>
+                <div class="label">סה"כ דקות השבוע</div>
+            </div>
+            <div class="stat-card">
+                <div class="icon">👥</div>
+                <div class="value" id="totalReports">0</div>
+                <div class="label">סה"כ דיווחים</div>
+            </div>
+            <div class="stat-card">
+                <div class="icon">📚</div>
+                <div class="value" id="todayReaders">0</div>
+                <div class="label">דיווחו היום</div>
+            </div>
+            <div class="stat-card">
+                <div class="icon">🎯</div>
+                <div class="value" id="participationRate">0%</div>
+                <div class="label">אחוז השתתפות</div>
+            </div>
+        </div>
+
+        <!-- Weekly Progress -->
+        <div class="card">
+            <h2>📈 התקדמות לעומת יעד השבוע</h2>
+            <div class="progress-section">
+                <div class="progress-bar-container">
+                    <div class="progress-bar-fill" id="weeklyProgress">0%</div>
+                </div>
+                <p id="progressText" style="color: #666; font-size: 16px;">0 מתוך 300 דקות</p>
+            </div>
+        </div>
+
+        <!-- Individual Tracking -->
+        <div class="card">
+            <h2>📊 מעקב אישי - השבוע</h2>
+            <div id="studentTracking">
+                <div class="no-data">טוען נתונים...</div>
+            </div>
+        </div>
+
+        <!-- Recent Reports -->
+        <div class="card">
+            <h2>📝 דיווחים אחרונים</h2>
+            <div style="overflow-x: auto;">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>תאריך</th>
+                            <th>שעה</th>
+                            <th>תלמיד/ה</th>
+                            <th>מה קרא/ה</th>
+                            <th>איך הרגיש/ה</th>
+                            <th>רגע AHA</th>
+                        </tr>
+                    </thead>
+                    <tbody id="reportsTable">
+                        <tr>
+                            <td colspan="6" class="no-data">טוען נתונים...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Configuration - Replace with your Google Sheet ID
+        const SHEET_ID = 'YOUR_GOOGLE_SHEET_ID_HERE';
+        const SHEET_NAME = 'דיווחים';
+        const API_KEY = 'YOUR_GOOGLE_API_KEY_HERE'; // Optional: for public access
+
+        // Load data on page load
+        window.addEventListener('DOMContentLoaded', loadData);
+
+        async function loadData() {
+            // Note: This uses Google Sheets as a database
+            // You'll need to make your sheet public or use Google Sheets API
+            
+            // For demo purposes, we'll use mock data
+            // Replace this with actual Google Sheets API call
+            
+            const mockData = generateMockData();
+            updateDashboard(mockData);
+        }
+
+        function generateMockData() {
+            // This is mock data for demonstration
+            // Replace with actual data from Google Sheets
+            return {
+                reports: [
+                    {date: '31/12/2024', time: '17:30', student: 'נועה כהן', material: 'הארי פוטר', feeling: 'flow', aha: 'הקסם באמת קיים!'},
+                    {date: '31/12/2024', time: '16:45', student: 'יוסי לוי', material: 'נרניה', feeling: 'easy', aha: ''},
+                    {date: '31/12/2024', time: '15:20', student: 'מיכל אברהם', material: 'מגזין נשיונל ג׳יאוגרפיק', feeling: 'hard', aha: 'למדתי על דינוזאורים'},
+                ],
+                weeklyMinutes: 180,
+                totalReports: 18,
+                todayReaders: 3,
+                totalStudents: 25
+            };
+        }
+
+        function updateDashboard(data) {
+            // Update stats
+            document.getElementById('totalMinutes').textContent = data.weeklyMinutes;
+            document.getElementById('totalReports').textContent = data.totalReports;
+            document.getElementById('todayReaders').textContent = data.todayReaders;
+            
+            const participationRate = Math.round((data.todayReaders / data.totalStudents) * 100);
+            document.getElementById('participationRate').textContent = participationRate + '%';
+            
+            // Update progress bar
+            const weeklyGoal = 300;
+            const progress = Math.min((data.weeklyMinutes / weeklyGoal) * 100, 100);
+            document.getElementById('weeklyProgress').style.width = progress + '%';
+            document.getElementById('weeklyProgress').textContent = Math.round(progress) + '%';
+            document.getElementById('progressText').textContent = 
+                `${data.weeklyMinutes} מתוך ${weeklyGoal} דקות`;
+            
+            // Update reports table
+            updateReportsTable(data.reports);
+            
+            // Update student tracking
+            updateStudentTracking(data.reports);
+        }
+
+        function updateReportsTable(reports) {
+            const tbody = document.getElementById('reportsTable');
+            
+            if (reports.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" class="no-data">אין דיווחים עדיין</td></tr>';
+                return;
+            }
+            
+            tbody.innerHTML = reports.map(report => `
+                <tr>
+                    <td>${report.date}</td>
+                    <td>${report.time}</td>
+                    <td>${report.student}</td>
+                    <td>${report.material}</td>
+                    <td><span class="feeling-badge feeling-${report.feeling}">
+                        ${getFeelingText(report.feeling)}
+                    </span></td>
+                    <td>${report.aha || '-'}</td>
+                </tr>
+            `).join('');
+        }
+
+        function updateStudentTracking(reports) {
+            // Count reports per student
+            const studentCounts = {};
+            reports.forEach(report => {
+                studentCounts[report.student] = (studentCounts[report.student] || 0) + 1;
+            });
+            
+            // Sort by count
+            const sorted = Object.entries(studentCounts).sort((a, b) => b[1] - a[1]);
+            
+            const container = document.getElementById('studentTracking');
+            
+            if (sorted.length === 0) {
+                container.innerHTML = '<div class="no-data">אין דיווחים עדיין</div>';
+                return;
+            }
+            
+            container.innerHTML = sorted.map(([name, count]) => `
+                <div class="student-card">
+                    <span class="student-name">${name}</span>
+                    <span class="student-days">${count} ימים</span>
+                </div>
+            `).join('');
+        }
+
+        function getFeelingText(feeling) {
+            const feelings = {
+                'easy': '💪 הלך חלק',
+                'hard': '😓 היה קשה',
+                'flow': '🚀 זרימה'
+            };
+            return feelings[feeling] || feeling;
+        }
+
+        function exportToCSV() {
+            alert('פונקציה זו תייצא את הנתונים מGoogle Sheets ישירות.\nפשוט פתחי את הגיליון ולחצי File > Download > CSV');
+        }
+
+        // Auto-refresh every 5 minutes
+        setInterval(loadData, 5 * 60 * 1000);
+    </script>
+</body>
+</html>
