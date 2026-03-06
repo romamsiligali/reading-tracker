@@ -3,35 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>נבחרת הקריאה ג'1</title>
+    <title>נבחרת הקריאה - כיתה ג'1</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;700;800&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Assistant', sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 1rem; margin: 0; }
-        .card { background: white; border-radius: 24px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); width: 100%; max-width: 450px; padding: 2rem; }
+        :root { --primary: #ff7e5f; --secondary: #feb47b; --bg: #f8fafc; }
+        body { font-family: 'Assistant', sans-serif; background-color: var(--bg); margin: 0; padding: 0; }
+        .hero-bg { background: linear-gradient(135deg, var(--primary), var(--secondary)); padding: 40px 20px; text-align: center; color: white; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; max-width: 500px; margin: -25px auto 25px; padding: 0 15px; }
+        .stat-card { background: white; padding: 15px 5px; border-radius: 18px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); text-align: center; border: 1px solid #edf2f7; }
+        .stat-number { font-size: 1.5rem; font-weight: 800; color: #2d3748; }
+        .stat-label { font-size: 0.7rem; color: #718096; font-weight: 700; }
+        .main-card { background: white; max-width: 500px; margin: 0 auto 40px; border-radius: 25px; padding: 30px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); border: 1px solid #f1f5f9; }
+        .feeling-card { border: 2px solid #f1f5f9; border-radius: 20px; padding: 15px; cursor: pointer; transition: all 0.2s; }
+        .feeling-card:hover { border-color: var(--primary); background-color: #fffaf0; }
+        input[type="radio"]:checked + .feeling-content { color: var(--primary); }
+        .submit-btn { background: linear-gradient(to right, #ff7e5f, #feb47b); color: white; width: 100%; padding: 18px; border-radius: 20px; font-weight: 800; font-size: 1.1rem; shadow: 0 10px 15px rgba(255, 126, 95, 0.4); transition: transform 0.2s; }
+        .submit-btn:active { transform: scale(0.98); }
     </style>
 </head>
 <body>
-    <div class="card">
-        <div class="text-center mb-6">
-            <h1 class="text-3xl font-bold text-gray-800">💪 נבחרת הקריאה ג'1</h1>
-            <p class="text-gray-500 mt-1 text-lg text-center">חדר כושר למוח</p>
-        </div>
+    <div class="hero-bg">
+        <div class="text-4xl mb-2">🧠💪</div>
+        <h1 class="text-3xl font-extrabold">נבחרת הקריאה של ג'1</h1>
+        <p class="opacity-90 font-bold">חדר כושר למוח</p>
+    </div>
 
-        <form id="readingForm" class="space-y-4 text-right">
+    <div class="stats-grid">
+        <div class="stat-card"><div class="stat-number">40</div><div class="stat-label">דקות השבוע</div></div>
+        <div class="stat-card"><div class="stat-number">4</div><div class="stat-label">אימנו היום</div></div>
+        <div class="stat-card"><div class="stat-number">300</div><div class="stat-label">יעד השבוע</div></div>
+    </div>
+
+    <div class="main-card text-right">
+        <h2 class="text-xl font-extrabold mb-2 text-gray-800">📝 דיווח אימון יומי</h2>
+        <p class="text-sm text-gray-500 mb-6 font-bold">סימנת את אימון ה-10 דקות היום? מעולה!</p>
+
+        <form id="readingForm" class="space-y-6">
             <div>
-                <label class="block font-bold text-gray-700 mb-1">🙋‍♂️ מי המתאמן/ת?</label>
-                <select id="studentName" required class="w-full border-2 border-gray-100 rounded-xl p-3 focus:border-indigo-500 outline-none">
-                    <option value="">בחרו שם מהרשימה...</option>
+                <label class="block font-extrabold text-gray-700 mb-2">🙋‍♂️ מה שמך?</label>
+                <select id="studentName" required class="w-full border-2 border-gray-100 rounded-2xl p-4 focus:border-orange-400 outline-none appearance-none bg-gray-50">
+                    <option value="">בחר/י את שמך</option>
                     <option value="אביגיל בן אבי">אביגיל בן אבי</option><option value="אדם ברגר">אדם ברגר</option>
                     <option value="אופיר זיו">אופיר זיו</option><option value="אופיר כהנים">אופיר כהנים</option>
                     <option value="אופיר שמאלוב">אופיר שמאלוב</option><option value="אמילי סנדלר">אמילי סנדלר</option>
                     <option value="ארז פריטש-רייף">ארז פריטש-רייף</option><option value="בר רוזן">בר רוזן</option>
-                    <option value="גיא אליהו">גיא אליהו</option><option value="היילי פלקס">היילי פלקס</option>
+                    <option value="גיא אליהו">גיא אליהו</option><option value="היילי פלקסי">היילי פלקסי</option>
                     <option value="יהונתן פלד">יהונתן פלד</option><option value="לי ניב">לי ניב</option>
                     <option value="ליאור קריבושי">ליאור קריבושי</option><option value="ליה רון">ליה רון</option>
                     <option value="מיה טמבור">מיה טמבור</option><option value="מיה פרלן">מיה פרלן</option>
-                    <option value="נטע ורון">נטע ורון</option><option value="נינה מירקין">נינה מירקין</option>
+                    <option value="טע ורון">טע ורון</option><option value="נינה מירקין">נינה מירקין</option>
                     <option value="עידו אביטל">עידו אביטל</option><option value="פלג אילוז הורוביץ">פלג אילוז הורוביץ</option>
                     <option value="רוי בר לב">רוי בר לב</option><option value="רוי גינדי לוי">רוי גינדי לוי</option>
                     <option value="שחר מאורי">שחר מאורי</option>
@@ -39,35 +60,33 @@
             </div>
 
             <div>
-                <label class="block font-bold text-gray-700 mb-1">📚 מה קראת היום?</label>
-                <input type="text" id="readingMaterial" placeholder="שם הספר" required class="w-full border-2 border-gray-100 rounded-xl p-3 focus:border-indigo-500 outline-none">
+                <label class="block font-extrabold text-gray-700 mb-2">📚 מה קראת היום?</label>
+                <input type="text" id="readingMaterial" placeholder="שם הספר / כתבה / קומיקס" required class="w-full border-2 border-gray-100 rounded-2xl p-4 focus:border-orange-400 outline-none bg-gray-50">
             </div>
 
             <div>
-                <label class="block font-bold text-gray-700 mb-1">💭 איך היה האימון?</label>
-                <div class="flex justify-around bg-gray-50 p-2 rounded-xl">
-                    <label class="cursor-pointer text-center"><input type="radio" name="feeling" value="מעולה" checked class="hidden peer"><span class="block text-2xl grayscale peer-checked:grayscale-0 transition-all">😍</span><span class="text-xs">מעולה</span></label>
-                    <label class="cursor-pointer text-center"><input type="radio" name="feeling" value="נחמד" class="hidden peer"><span class="block text-2xl grayscale peer-checked:grayscale-0 transition-all">😊</span><span class="text-xs">נחמד</span></label>
-                    <label class="cursor-pointer text-center"><input type="radio" name="feeling" value="קשה" class="hidden peer"><span class="block text-2xl grayscale peer-checked:grayscale-0 transition-all">😥</span><span class="text-xs">קשה</span></label>
+                <label class="block font-extrabold text-gray-700 mb-3">💭 איך הרגשת באימון?</label>
+                <div class="grid grid-cols-3 gap-3">
+                    <label class="feeling-card text-center relative"><input type="radio" name="feeling" value="מעולה" checked class="hidden peer">
+                        <div class="feeling-content"><div class="text-3xl mb-1">💪</div><div class="text-xs font-bold">הלך חלק</div></div></label>
+                    <label class="feeling-card text-center relative"><input type="radio" name="feeling" value="קשה" class="hidden peer">
+                        <div class="feeling-content"><div class="text-3xl mb-1">😓</div><div class="text-xs font-bold">היה קשה</div></div></label>
+                    <label class="feeling-card text-center relative"><input type="radio" name="feeling" value="בזרימה" class="hidden peer">
+                        <div class="feeling-content"><div class="text-3xl mb-1">🚀</div><div class="text-xs font-bold">בזרימה!</div></div></label>
                 </div>
             </div>
 
-            <button type="submit" id="submitBtn" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 rounded-xl shadow-lg transition-all transform active:scale-95">
-                🎯 שלח דיווח ותרום 10 דקות!
-            </button>
+            <button type="submit" id="submitBtn" class="submit-btn">🎯 שלח דיווח ותרום 10 דקות!</button>
         </form>
     </div>
 
     <script>
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyEJi8Y9QD_8XVqiip2cujEhV6Ue9GySSpekmr_-wYdP_MbgY0LJGfukencB7HDCji-Ag/exec';
-
         document.getElementById('readingForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             const btn = document.getElementById('submitBtn');
-            btn.disabled = true;
-            btn.innerText = '⏳ שולח...';
-
-            // בניית הנתונים בדיוק לפי העמודות באקסל של ג'1
+            btn.disabled = true; btn.innerText = '⏳ שולח...';
+            
             const params = new URLSearchParams();
             params.append('תאריך', new Date().toLocaleDateString('he-IL'));
             params.append('שם תלמיד/ה', document.getElementById('studentName').value);
@@ -76,21 +95,11 @@
             params.append('דקות', '10');
 
             try {
-                // שליחה בפורמט שה-Google Script מקבל הכי טוב
-                await fetch(SCRIPT_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: params
-                });
-                alert('כל הכבוד! הדיווח נרשם בהצלחה 🌟');
+                await fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: params });
+                alert('כל הכבוד גלי! הדיווח נרשם בהצלחה 🌟');
                 this.reset();
-            } catch (error) {
-                alert('אופס, היתה שגיאה קטנה. נסי שוב.');
-            } finally {
-                btn.disabled = false;
-                btn.innerText = '🎯 שלח דיווח ותרום 10 דקות!';
-            }
+            } catch (error) { alert('אופס, נסי שוב.'); }
+            finally { btn.disabled = false; btn.innerText = '🎯 שלח דיווח ותרום 10 דקות!'; }
         });
     </script>
 </body>
