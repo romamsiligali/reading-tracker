@@ -3,136 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>נבחרת הקריאה - כיתה ג'1</title>
-    <link rel="stylesheet" href="../style.css">
+    <title>נבחרת הקריאה ג'1</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;700;800&display=swap" rel="stylesheet">
     <style>
-        /* תיקון קטן כדי שהעיצוב יעבוד גם בתיקייה פנימית */
-        body { background-color: #f3f4f6; }
+        body { font-family: 'Assistant', sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 1rem; margin: 0; }
+        .card { background: white; border-radius: 24px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); width: 100%; max-width: 450px; padding: 2rem; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header class="header">
-            <div class="logo">🧠💪</div>
-            <h1>נבחרת הקריאה של כיתה ג'1</h1>
-            <p class="subtitle">חדר כושר למוח</p>
-        </header>
-
-        <div class="stats-banner">
-            <div class="stat-item">
-                <div class="stat-number" id="totalMinutes">0</div>
-                <div class="stat-label">דקות השבוע</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number" id="todayReaders">0</div>
-                <div class="stat-label">אימנו היום</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number" id="weeklyGoal">300</div>
-                <div class="stat-label">יעד השבוע</div>
-            </div>
+    <div class="card">
+        <div class="text-center mb-6">
+            <h1 class="text-3xl font-bold text-gray-800">💪 נבחרת הקריאה ג'1</h1>
+            <p class="text-gray-500 mt-1 text-lg text-center">חדר כושר למוח</p>
         </div>
 
-        <div class="progress-container">
-            <div class="progress-bar" id="progressBar"></div>
-            <div class="progress-text" id="progressText">0%</div>
-        </div>
-
-        <div class="form-container">
-            <h2>📝 דיווח אימון יומי</h2>
-            <p class="form-description">סימנת את אימון ה-10 דקות היום? מעולה! דווח/י עכשיו!</p>
-
-            <form id="readingForm">
-                <div class="form-group">
-                    <label for="studentName">🙋‍♂️ מה שמך?</label>
-                    <select id="studentName" name="studentName" required>
-                        <option value="">בחר/י את שמך</option>
-                        <option value="אביגיל בן אבי">אביגיל בן אבי</option>
-                        <option value="אדם ברגר">אדם ברגר</option>
-                        <option value="אופיר זיו">אופיר זיו</option>
-                        <option value="אופיר כהנים">אופיר כהנים</option>
-                        <option value="אופיר שמאלוב">אופיר שמאלוב</option>
-                        <option value="אמילי סנדלר">אמילי סנדלר</option>
-                        <option value="ארז פריטש-רייף">ארז פריטש-רייף</option>
-                        <option value="בר רוזן">בר רוזן</option>
-                        <option value="גיא אליהו">גיא אליהו</option>
-                        <option value="היילי פלקסי">היילי פלקסי</option>
-                        <option value="יהונתן פלד">יהונתן פלד</option>
-                        <option value="לי ניב">לי ניב</option>
-                        <option value="ליאור קריבושי">ליאור קריבושי</option>
-                        <option value="ליה רון">ליה רון</option>
-                        <option value="מיה טמבור">מיה טמבור</option>
-                        <option value="מיה פרלן">מיה פרלן</option>
-                        <option value="נטע ורון">נטע ורון</option>
-                        <option value="נינה מירקין">נינה מירקין</option>
-                        <option value="עידו אביטל">עידו אביטל</option>
-                        <option value="פלג אילוז הורוביץ">פלג אילוז הורוביץ</option>
-                        <option value="רוי בר לב">רוי בר לב</option>
-                        <option value="רוי גינדי לוי">רוי גינדי לוי</option>
-                        <option value="שחר מאורי">שחר מאורי</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="readingMaterial">📚 מה קראת היום?</label>
-                    <input type="text" id="readingMaterial" name="readingMaterial" 
-                           placeholder="שם הספר / כתבה / קומיקס" required>
-                </div>
-
-                <div class="form-group">
-                    <label>💭 איך הרגשת באימון?</label>
-                    <div class="feeling-options">
-                        <label class="feeling-card">
-                            <input type="radio" name="feeling" value="easy" required>
-                            <div class="feeling-content">
-                                <div class="feeling-emoji">💪</div>
-                                <div class="feeling-text">הלך חלק</div>
-                            </div>
-                        </label>
-                        <label class="feeling-card">
-                            <input type="radio" name="feeling" value="hard" required>
-                            <div class="feeling-content">
-                                <div class="feeling-emoji">😓</div>
-                                <div class="feeling-text">היה קשה</div>
-                            </div>
-                        </label>
-                        <label class="feeling-card">
-                            <input type="radio" name="feeling" value="flow" required>
-                            <div class="feeling-content">
-                                <div class="feeling-emoji">🚀</div>
-                                <div class="feeling-text">הייתי בזרימה!</div>
-                            </div>
-                        </label>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="ahaMoment">💡 רגע AHA! (אופציונלי)</label>
-                    <textarea id="ahaMoment" name="ahaMoment" 
-                              placeholder="משהו מעניין שקרה בקריאה? דמות שאהבת?"></textarea>
-                </div>
-
-                <button type="submit" class="submit-btn" id="submitBtn">
-                    <span class="btn-text">🎯 שלח דיווח ותרום 10 דקות!</span>
-                </button>
-            </form>
-        </div>
-
-        <div class="success-message" id="successMessage">
-            <div class="success-content">
-                <div class="success-icon">🎉</div>
-                <h2>כל הכבוד!</h2>
-                <p>תרמת <strong>10 דקות</strong> לנבחרת!</p>
-                <button class="close-btn" onclick="closeSuccessMessage()">סגור</button>
+        <form id="readingForm" class="space-y-4 text-right">
+            <div>
+                <label class="block font-bold text-gray-700 mb-1">🙋‍♂️ מי המתאמן/ת?</label>
+                <select id="studentName" required class="w-full border-2 border-gray-100 rounded-xl p-3 focus:border-indigo-500 outline-none">
+                    <option value="">בחרו שם מהרשימה...</option>
+                    <option value="אביגיל בן אבי">אביגיל בן אבי</option><option value="אדם ברגר">אדם ברגר</option>
+                    <option value="אופיר זיו">אופיר זיו</option><option value="אופיר כהנים">אופיר כהנים</option>
+                    <option value="אופיר שמאלוב">אופיר שמאלוב</option><option value="אמילי סנדלר">אמילי סנדלר</option>
+                    <option value="ארז פריטש-רייף">ארז פריטש-רייף</option><option value="בר רוזן">בר רוזן</option>
+                    <option value="גיא אליהו">גיא אליהו</option><option value="היילי פלקסי">היילי פלקסי</option>
+                    <option value="יהונתן פלד">יהונתן פלד</option><option value="לי ניב">לי ניב</option>
+                    <option value="ליאור קריבושי">ליאור קריבושי</option><option value="ליה רון">ליה רון</option>
+                    <option value="מיה טמבור">מיה טמבור</option><option value="מיה פרלן">מיה פרלן</option>
+                    <option value="נטע ורון">נטע ורון</option><option value="נינה מירקין">נינה מירקין</option>
+                    <option value="עידו אביטל">עידו אביטל</option><option value="פלג אילוז הורוביץ">פלג אילוז הורוביץ</option>
+                    <option value="רוי בר לב">רוי בר לב</option><option value="רוי גינדי לוי">רוי גינדי לוי</option>
+                    <option value="שחר מאורי">שחר מאורי</option>
+                </select>
             </div>
-        </div>
 
-        <footer class="footer">
-            <p>💪 כל אימון מחזק אותנו! 📚</p>
-            <p class="footer-small">נבחרת הקריאה - כיתה ג'1</p>
-        </footer>
+            <div>
+                <label class="block font-bold text-gray-700 mb-1">📚 מה קראת היום?</label>
+                <input type="text" id="readingMaterial" placeholder="שם הספר" required class="w-full border-2 border-gray-100 rounded-xl p-3 focus:border-indigo-500 outline-none">
+            </div>
+
+            <div>
+                <label class="block font-bold text-gray-700 mb-1">💭 איך היה האימון?</label>
+                <div class="flex justify-around bg-gray-50 p-2 rounded-xl">
+                    <label class="cursor-pointer text-center"><input type="radio" name="feeling" value="מעולה" checked class="hidden peer"><span class="block text-2xl grayscale peer-checked:grayscale-0 transition-all">😍</span><span class="text-xs">מעולה</span></label>
+                    <label class="cursor-pointer text-center"><input type="radio" name="feeling" value="נחמד" class="hidden peer"><span class="block text-2xl grayscale peer-checked:grayscale-0 transition-all">😊</span><span class="text-xs">נחמד</span></label>
+                    <label class="cursor-pointer text-center"><input type="radio" name="feeling" value="קשה" class="hidden peer"><span class="block text-2xl grayscale peer-checked:grayscale-0 transition-all">😥</span><span class="text-xs">קשה</span></label>
+                </div>
+            </div>
+
+            <button type="submit" id="submitBtn" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 rounded-xl shadow-lg transition-all transform active:scale-95">
+                🎯 שלח דיווח ותרום 10 דקות!
+            </button>
+        </form>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyEJi8Y9QD_8XVqiip2cujEhV6Ue9GySSpekmr_-wYdP_MbgY0LJGfukencB7HDCji-Ag/exec';
+
+        document.getElementById('readingForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const btn = document.getElementById('submitBtn');
+            btn.disabled = true;
+            btn.innerText = '⏳ שולח...';
+
+            // בניית הנתונים בדיוק לפי העמודות באקסל של ג'1
+            const params = new URLSearchParams();
+            params.append('תאריך', new Date().toLocaleDateString('he-IL'));
+            params.append('שם תלמיד/ה', document.getElementById('studentName').value);
+            params.append('מה קרא/ה', document.getElementById('readingMaterial').value);
+            params.append('איך הרגיש/ה', document.querySelector('input[name="feeling"]:checked').value);
+            params.append('דקות', '10');
+
+            try {
+                // שליחה בפורמט שה-Google Script מקבל הכי טוב
+                await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: params
+                });
+                alert('כל הכבוד! הדיווח נרשם בהצלחה 🌟');
+                this.reset();
+            } catch (error) {
+                alert('אופס, היתה שגיאה קטנה. נסי שוב.');
+            } finally {
+                btn.disabled = false;
+                btn.innerText = '🎯 שלח דיווח ותרום 10 דקות!';
+            }
+        });
+    </script>
 </body>
 </html>
