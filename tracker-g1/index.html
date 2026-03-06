@@ -6,50 +6,65 @@
     <title>נבחרת הקריאה - כיתה ג'1</title>
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        /* כאן נמצא כל הסטייל המקורי של כיתה ה' */
         :root { --primary: #6366f1; --bg: #f8fafc; }
-        body { font-family: 'Assistant', sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px; margin: 0; }
-        .container { background: white; width: 100%; max-width: 450px; padding: 2rem; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
-        .header { text-align: center; margin-bottom: 2rem; }
-        .header h1 { color: #1e293b; font-size: 1.8rem; margin: 0; }
-        .form-group { margin-bottom: 1.2rem; }
-        label { display: block; margin-bottom: 0.5rem; font-weight: 700; color: #475569; }
-        input, select { width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 10px; font-size: 1rem; box-sizing: border-box; }
-        button { width: 100%; padding: 14px; background: var(--primary); color: white; border: none; border-radius: 10px; font-size: 1.1rem; font-weight: 700; cursor: pointer; transition: 0.3s; }
-        button:hover { background: #4f46e5; transform: translateY(-2px); }
+        body { font-family: 'Assistant', sans-serif; background: #f0f2f5; margin: 0; padding: 20px; direction: rtl; }
+        .container { max-width: 500px; margin: auto; background: white; padding: 25px; border-radius: 20px; shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .progress-container { background: #e2e8f0; border-radius: 10px; height: 20px; margin: 20px 0; position: relative; }
+        .progress-bar { background: var(--primary); height: 100%; border-radius: 10px; width: 0%; transition: width 0.5s; }
+        .success-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 100; justify-content: center; align-items: center; }
+        .success-modal.show { display: flex; }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <h1>📚 נבחרת הקריאה</h1>
-            <p>כיתה ג'1 - אימון קריאה יומי</p>
+        <div style="text-align:center;">
+            <h1>📚 נבחרת הקריאה - ג'1</h1>
+            <p>מתאמנים, מתחזקים ונהנים!</p>
         </div>
-        <form id="reading-form">
-            <div class="form-group">
-                <label>שם התלמיד/ה</label>
-                <select id="studentName" required>
+
+        <div class="stats-box">
+            <div>סה"כ דקות השבוע: <span id="totalMinutes">0</span> / <span id="weeklyGoal">1000</span></div>
+            <div class="progress-container"><div id="progressBar" class="progress-bar"></div></div>
+            <div style="text-align:center;" id="progressText">0%</div>
+        </div>
+
+        <form id="readingForm">
+            <div style="margin-bottom:15px;">
+                <label>שם התלמיד/ה:</label>
+                <select id="studentName" required style="width:100%; padding:10px;">
                     <option value="">בחרו שם...</option>
+                    <option value="אביגיל">אביגיל</option>
+                    <option value="מתן">מתן</option>
                     </select>
             </div>
-            <div class="form-group">
-                <label>כמה דקות קראת?</label>
-                <input type="number" id="minutes" required min="1">
+
+            <div style="margin-bottom:15px;">
+                <label>מה קראת היום? (שם הספר)</label>
+                <input type="text" id="readingMaterial" required style="width:100%; padding:10px;">
             </div>
-            <div class="form-group">
-                <label>שם הספר</label>
-                <input type="text" id="bookName" required>
+
+            <div style="margin-bottom:15px;">
+                <label>איך הרגשת באימון?</label><br>
+                <input type="radio" name="feeling" value="מעולה" checked> 😍 מעולה
+                <input type="radio" name="feeling" value="נחמד"> 😊 נחמד
+                <input type="radio" name="feeling" value="קצת קשה"> 😥 קצת קשה
             </div>
-            <div class="form-group">
-                <label>איך היה האימון?</label>
-                <select id="feeling">
-                    <option value="מעולה">🤩 מעולה</option>
-                    <option value="נחמד">😊 נחמד</option>
-                    <option value="קצת קשה">😥 קצת קשה</option>
-                </select>
-            </div>
-            <button type="submit">שלח דיווח</button>
+
+            <button type="submit" id="submitBtn" style="width:100%; padding:15px; background:var(--primary); color:white; border:none; border-radius:10px; font-weight:bold;">
+                🎯 שלח דיווח ותרום 10 דקות!
+            </button>
         </form>
     </div>
+
+    <div id="successMessage" class="success-modal">
+        <div style="background:white; padding:30px; border-radius:20px; text-align:center;">
+            <h2>כל הכבוד! 💪</h2>
+            <p>האימון נרשם בהצלחה.</p>
+            <button onclick="closeSuccessMessage()" style="padding:10px 20px;">סגור</button>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
