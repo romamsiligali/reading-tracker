@@ -3,26 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>נבחרת הקריאה ג'1</title>
+    <title>נבחרת הקריאה של כיתה ג'1</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;700;800&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Assistant', sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 1rem; margin: 0; }
-        .card { background: white; border-radius: 24px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); width: 100%; max-width: 450px; padding: 2rem; }
+        body { font-family: 'Assistant', sans-serif; background-color: #f8fafc; margin: 0; padding: 0; }
+        .hero-bg { background: linear-gradient(to bottom, #ff7e5f, #feb47b); padding: 40px 20px; text-align: center; color: white; }
+        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; max-width: 500px; margin: -30px auto 20px; padding: 0 15px; }
+        .stat-card { background: white; padding: 15px 5px; border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); text-align: center; }
+        .progress-container { max-width: 500px; margin: 20px auto; padding: 0 15px; }
+        .progress-bg { background: #e2e8f0; border-radius: 20px; height: 12px; overflow: hidden; }
+        .progress-bar { background: #cbd5e1; height: 100%; width: 0%; transition: width 0.5s; }
+        .main-card { background: white; max-width: 500px; margin: 0 auto 40px; border-radius: 20px; padding: 25px; box-shadow: 0 10px 15px rgba(0,0,0,0.1); }
     </style>
 </head>
 <body>
-    <div class="card">
-        <div class="text-center mb-6">
-            <h1 class="text-3xl font-bold text-gray-800">💪 נבחרת הקריאה ג'1</h1>
-            <p class="text-gray-500 mt-1 text-lg">חדר כושר למוח</p>
-        </div>
+    <div class="hero-bg">
+        <h1 class="text-3xl font-extrabold">נבחרת הקריאה של כיתה ג'1 💪🧠</h1>
+        <p class="mt-2 opacity-90">חדר כושר למוח</p>
+    </div>
 
-        <form id="readingForm" class="space-y-4 text-right">
+    <div class="stats-grid">
+        <div class="stat-card"><div id="totalMinutes" class="text-2xl font-bold text-orange-500">0</div><div class="text-xs text-gray-500">דקות השבוע</div></div>
+        <div class="stat-card"><div id="todayReaders" class="text-2xl font-bold text-red-500">0</div><div class="text-xs text-gray-500">אימנו היום</div></div>
+        <div class="stat-card"><div class="text-2xl font-bold text-gray-700">300</div><div class="text-xs text-gray-500">יעד השבוע</div></div>
+    </div>
+
+    <div class="progress-container">
+        <div class="progress-bg"><div id="progressBar" class="progress-bar"></div></div>
+        <div class="text-center text-sm font-bold mt-1 text-gray-400" id="progressText">0%</div>
+    </div>
+
+    <div class="main-card">
+        <h2 class="text-xl font-bold mb-4 text-center">📝 דיווח אימון יומי</h2>
+        <form id="readingForm" class="space-y-4">
             <div>
-                <label class="block font-bold text-gray-700 mb-1">🙋‍♂️ מי המתאמן/ת?</label>
-                <select id="studentName" required class="w-full border-2 border-gray-100 rounded-xl p-3 focus:border-indigo-500 outline-none">
-                    <option value="">בחרו שם מהרשימה...</option>
+                <label class="block font-bold mb-1">🙋‍♂️ מה שמך?</label>
+                <select id="studentName" required class="w-full border border-gray-300 rounded-lg p-3">
+                    <option value="">בחר/י את שמך</option>
                     <option value="אביגיל בן אבי">אביגיל בן אבי</option><option value="אדם ברגר">אדם ברגר</option>
                     <option value="אופיר זיו">אופיר זיו</option><option value="אופיר כהנים">אופיר כהנים</option>
                     <option value="אופיר שמאלוב">אופיר שמאלוב</option><option value="אמילי סנדלר">אמילי סנדלר</option>
@@ -37,24 +55,22 @@
                     <option value="שחר מאורי">שחר מאורי</option>
                 </select>
             </div>
-
             <div>
-                <label class="block font-bold text-gray-700 mb-1">📚 מה קראת היום?</label>
-                <input type="text" id="readingMaterial" placeholder="שם הספר" required class="w-full border-2 border-gray-100 rounded-xl p-3 focus:border-indigo-500 outline-none">
+                <label class="block font-bold mb-1">📚 מה קראת היום?</label>
+                <input type="text" id="readingMaterial" placeholder="שם הספר / כתבה / קומיקס" required class="w-full border border-gray-300 rounded-lg p-3">
             </div>
-
             <div>
-                <label class="block font-bold text-gray-700 mb-1">💭 איך היה האימון?</label>
-                <div class="flex justify-around bg-gray-50 p-2 rounded-xl">
-                    <label class="cursor-pointer text-center"><input type="radio" name="feeling" value="מעולה" checked class="hidden peer"><span class="block text-2xl grayscale peer-checked:grayscale-0">😍</span><span class="text-xs">מעולה</span></label>
-                    <label class="cursor-pointer text-center"><input type="radio" name="feeling" value="נחמד" class="hidden peer"><span class="block text-2xl grayscale peer-checked:grayscale-0">😊</span><span class="text-xs">נחמד</span></label>
-                    <label class="cursor-pointer text-center"><input type="radio" name="feeling" value="קשה" class="hidden peer"><span class="block text-2xl grayscale peer-checked:grayscale-0">😥</span><span class="text-xs">קשה</span></label>
+                <label class="block font-bold mb-2">💭 איך הרגשת באימון?</label>
+                <div class="grid grid-cols-3 gap-2">
+                    <label class="border rounded-xl p-4 text-center cursor-pointer hover:bg-gray-50"><input type="radio" name="feeling" value="מעולה" checked class="hidden peer">
+                        <span class="block text-2xl">💪</span><span class="text-xs font-bold">הלך חלק</span></label>
+                    <label class="border rounded-xl p-4 text-center cursor-pointer hover:bg-gray-50"><input type="radio" name="feeling" value="קשה" class="hidden peer">
+                        <span class="block text-2xl">😓</span><span class="text-xs font-bold">היה קשה</span></label>
+                    <label class="border rounded-xl p-4 text-center cursor-pointer hover:bg-gray-50"><input type="radio" name="feeling" value="בזרימה" class="hidden peer">
+                        <span class="block text-2xl">🚀</span><span class="text-xs font-bold">הייתי בזרימה!</span></label>
                 </div>
             </div>
-
-            <button type="submit" id="submitBtn" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 rounded-xl shadow-lg transition-all transform active:scale-95">
-                🎯 שלח דיווח ותרום 10 דקות!
-            </button>
+            <button type="submit" id="submitBtn" class="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-4 rounded-xl shadow-lg transition-all">🎯 שלח דיווח ותרום 10 דקות!</button>
         </form>
     </div>
 
